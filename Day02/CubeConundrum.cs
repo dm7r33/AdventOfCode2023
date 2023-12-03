@@ -8,5 +8,12 @@ namespace AoC.Day02
 {
     internal class CubeConundrum
     {
+        /*  */
+        public static void Start()
+        {
+
+        }
+
+
     }
 }
