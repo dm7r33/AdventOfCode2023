@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,14 +22,20 @@ namespace AoC.Day02
          */
         public static void Start()
         {
-            List<string> text = ReadFile("C:\\Users\\Dimitri\\source\\repos\\AoC\\AoC\\Day02.txt");
+            List<string> text = ReadFileToList("C:\\Users\\Dimitri\\source\\repos\\AoC\\AoC\\Day02.txt");
 
             //index 0 - red; index 1 - green; index 2 - blue;
             int[] arrCubes = new int[3] { 12, 13, 14 };
-            HighestNumberOfCubesPerColorAndLine(text);
+            //HighestNumberOfCubesPerColorAndLine(text);
+
+
+            Console.WriteLine(text.Count);
+
+            Console.WriteLine(SumOfIndexesOfList(text));
+
         }
 
-        public static List<string> ReadFile(string path)
+        public static List<string> ReadFileToList(string path)
         {
             List<string> textLines = new();
             using (StreamReader sr = new StreamReader(path))
@@ -45,41 +52,31 @@ namespace AoC.Day02
             return textLines;
         }
 
-        public static void HighestNumberOfCubesPerColorAndLine(List<string> textLines)
+        //public static void HighestNumberOfCubesPerColorAndLine(List<string> textLines)
+        //{
+
+        //    for(int i = 0; i < textLines.Count; i++)
+        //    {
+
+        //        var arrRed = Regex.Matches(line, "[1-9]+\\sred").Cast<Match>().Select(m => m.Value).ToArray();
+
+        //        var arrGreen = Regex.Matches(line, "[1-9]+\\sgreen").Cast<Match>().Select(m => m.Value).ToArray();
+
+        //        var arrBlue = Regex.Matches(line, "[1-9]+\\sblue").Cast<Match>().Select(m => m.Value).ToArray();
+        //    }
+        //}
+
+
+
+        public static int SumOfIndexesOfList(List<string> text)
         {
-            int game = 0;
-            foreach (string line in textLines)
+            int count = 0;
+            for (int i = 1; i <= text.Count; i++)
             {
-                game++;
-                Console.WriteLine("Game {0}:", game);
-                //MatchCollection matchCollectionRed = Regex.Matches(line, "[1-9]+\\sred,");
-
-                var arrRed = Regex.Matches(line, "[1-9]+\\sred").Cast<Match>().Select(m => m.Value).ToArray();
-
-                foreach(var arr2 in arrRed)
-                {
-                    Console.WriteLine(arr2);
-                }
-
-                var arrGreen = Regex.Matches(line, "[1-9]+\\sgreen").Cast<Match>().Select(m => m.Value).ToArray();
-
-                foreach (var arr2 in arrGreen)
-                {
-                    Console.WriteLine(arr2);
-                }
-
-                var arrBlue = Regex.Matches(line, "[1-9]+\\sblue").Cast<Match>().Select(m => m.Value).ToArray();
-
-                foreach (var arr2 in arrBlue)
-                {
-                    Console.WriteLine(arr2);
-                }
-
-                Console.WriteLine();
-
+                count += i;
             }
+
+            return count;
         }
-
-
     }
 }

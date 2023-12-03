@@ -2,4 +2,4 @@
 using AoC.Day01;
 using AoC.Day02;
 
-CubeConundrum.Start();
+Trebouchet.Start();
