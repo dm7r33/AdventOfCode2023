@@ -22,16 +22,13 @@ namespace AoC.Day02
          */
         public static void Start()
         {
-            List<string> text = ReadFileToList("C:\\Users\\Dimitri\\source\\repos\\AoC\\AoC\\Day02\\Day02.txt");
-
+            List<string> srcTextList = ReadFileToList("C:\\Users\\Dimitri\\source\\repos\\AoC\\AoC\\Day02\\Day02.txt");
             //index 0 - red; index 1 - green; index 2 - blue;
             int[] arrCubes = new int[3] { 12, 13, 14 };
-            //HighestNumberOfCubesPerColorAndLine(text);
 
+            List<string> finalTextList = RemoveInvalidLines(srcTextList);
 
-            Console.WriteLine(text.Count);
-
-            Console.WriteLine(SumOfIndexesOfList(text));
+            Console.WriteLine(SumOfIDs(finalTextList));
 
         }
 
@@ -41,40 +38,65 @@ namespace AoC.Day02
             using (StreamReader sr = new StreamReader(path))
             {
                 string line;
-                int count = 0;
                 while ((line = sr.ReadLine()) != null)
                 {
+                    //line = MakeStringEasierToParse(line);
+
                     textLines.Add(line);
                 }
             }
             return textLines;
         }
 
-        //public static void HighestNumberOfCubesPerColorAndLine(List<string> textLines)
-        //{
-
-        //    for(int i = 0; i < textLines.Count; i++)
-        //    {
-
-        //        var arrRed = Regex.Matches(line, "[1-9]+\\sred").Cast<Match>().Select(m => m.Value).ToArray();
-
-        //        var arrGreen = Regex.Matches(line, "[1-9]+\\sgreen").Cast<Match>().Select(m => m.Value).ToArray();
-
-        //        var arrBlue = Regex.Matches(line, "[1-9]+\\sblue").Cast<Match>().Select(m => m.Value).ToArray();
-        //    }
-        //}
-
-
-
-        public static int SumOfIndexesOfList(List<string> text)
+        public static string MakeStringEasierToParse(string textLine)
         {
-            int count = 0;
-            for (int i = 1; i <= text.Count; i++)
+
+            textLine = Regex.Replace(textLine, "Game ", "");
+            textLine = Regex.Replace(textLine, " red", "r");
+            textLine = Regex.Replace(textLine, " green", "g");
+            textLine = Regex.Replace(textLine, " blue", "b");
+
+            return textLine;
+        }
+
+
+        public static List<string> RemoveInvalidLines(List<string> text)
+        {
+            for (int i = 0; i < text.Count; i++)
             {
-                count += i;
+                if (text[i].Contains("13r") == true | text[i].Contains("14r") == true | text[i].Contains("15r") == true | text[i].Contains("16r") == true | text[i].Contains("17r") == true | text[i].Contains("18r") == true | text[i].Contains("19r") == true | text[i].Contains("20r") == true)
+                {
+                    text.RemoveAt(i);
+                    i--;
+                }
+                else if (text[i].Contains("14g") == true | text[i].Contains("15g") == true | text[i].Contains("16g") == true | text[i].Contains("17g") == true | text[i].Contains("18g") == true | text[i].Contains("19g") == true | text[i].Contains("20g") == true)
+                {
+                    text.RemoveAt(i);
+                    i--;
+                }
+                else if (text[i].Contains("15b") == true | text[i].Contains("16b") == true | text[i].Contains("17b") == true | text[i].Contains("18b") == true | text[i].Contains("19b") == true | text[i].Contains("20b") == true)
+                {
+                    text.RemoveAt(i);
+                    i--;
+                }
+            }
+            return text;
+        }
+
+        public static int SumOfIDs(List<string> text)
+        {
+            int sum = 0;
+            foreach (string s in text)
+            {
+                Match collectionIDs = Regex.Match(s, "^\\d{1,2}");
+                string IDString = collectionIDs.ToString();
+                int ID = Int32.Parse(IDString);
+                sum += ID;
             }
 
-            return count;
+            return sum;
         }
     }
 }
+
+
