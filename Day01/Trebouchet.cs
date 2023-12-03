@@ -109,15 +109,13 @@ namespace AoC.Day01
 
             foreach (string line in lines)
             {
-                    char[] numberArr = new char[2];
-                    numberArr[0] = ReturnFirstNumberOfLineText(line);
-                    numberArr[1] = ReturnLastNumberOfLineText(line);
+                char[] numberArr = new char[2];
+                numberArr[0] = ReturnFirstNumberOfLineText(line);
+                numberArr[1] = ReturnLastNumberOfLineText(line);
 
-                    string numberString = new string(numberArr);
+                string numberString = new string(numberArr);
 
-
-                    sum += Int32.Parse(numberString);
-
+                sum += Int32.Parse(numberString);
             }
 
 
@@ -129,56 +127,9 @@ namespace AoC.Day01
         public static char ReturnFirstNumberOfLineText(string line)
         {
 
-
             MatchCollection collectionOfNumber = Regex.Matches(line, "[0-9]|one|two|three|four|five|six|seven|eight|nine");
 
-            char number = new();
-
-            string numberString = collectionOfNumber[0].ToString();
-
-            switch (numberString)
-            {
-                case "0":
-                    number = '0';
-                    break;
-                case "1":
-                case "one":
-                    number = '1';
-                    break;
-                case "2":
-                case "two":
-                    number = '2';
-                    break;
-                case "3":
-                case "three":
-                    number = '3';
-                    break;
-                case "4":
-                case "four":
-                    number = '4';
-                    break;
-                case "5":
-                case "five":
-                    number = '5';
-                    break;
-                case "6":
-                case "six":
-                    number = '6';
-                    break;
-                case "7":
-                case "seven":
-                    number = '7';
-                    break;
-                case "8":
-                case "eight":
-                    number = '8';
-                    break;
-                case "9":
-                case "nine":
-                    number = '9';
-                    break;
-            }
-            return number;
+            return ItterateThroughCases(collectionOfNumber);
 
         }
 
@@ -188,6 +139,12 @@ namespace AoC.Day01
             //use regexoption right to left match to avoid that overlapping expressions don't match
             MatchCollection collectionOfNumber = Regex.Matches(line, "[0-9]|one|two|three|four|five|six|seven|eight|nine", RegexOptions.RightToLeft);
 
+
+            return ItterateThroughCases(collectionOfNumber);
+        }
+
+        public static char ItterateThroughCases(MatchCollection collectionOfNumber)
+        {
             char number = new();
 
             string numberString = collectionOfNumber[0].ToString();
