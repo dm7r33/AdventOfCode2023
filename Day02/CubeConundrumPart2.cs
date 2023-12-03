@@ -25,32 +25,18 @@ namespace AoC.Day02
             for (int i = 0; i < lineArr.Length; i++)
             {
                 string[] gameSplit = lineArr[i].Split(':');
-                Console.WriteLine("Game: " + gameSplit[1]);
 
                 for (int j = 1; j < gameSplit.Length; j = j + 2)
                 {
                     string[] setSplit = gameSplit[j].Split(";");
-                    foreach (string s in setSplit)
-                    {
-                        Console.WriteLine("  Set: " + s);
-                    }
 
                     for (int k = 0; k < setSplit.Length; k++)
                     {
                         string[] drawSplit = setSplit[k].Split(",");
-                        foreach (string s in drawSplit)
-                        {
-                            Console.WriteLine("    Draw {0}: " + s, k);
-                        }
 
                         for(int l = 0; l < drawSplit.Length; l++)
                         {
                             string[] cubeSplit = drawSplit[l].Split(" ", StringSplitOptions.RemoveEmptyEntries);
-
-                            foreach(string s in cubeSplit)
-                            {
-                                Console.WriteLine("      Cube {0}:" + s, l);
-                            }
 
                             if (DictForValues.ContainsKey(cubeSplit[1]) == false)
                             {
@@ -62,13 +48,6 @@ namespace AoC.Day02
                                     DictForValues[cubeSplit[1]] = Int32.Parse(cubeSplit[0]);
                                 } 
                             }
-
-                            foreach (KeyValuePair<string, int> keyValuePair in DictForValues)
-                            {
-                                Console.WriteLine("Max Values Per Game: {0} {1}", keyValuePair.Key, keyValuePair.Value);
-                            }
-
-
                         }
 
                     }
@@ -82,15 +61,11 @@ namespace AoC.Day02
 
                     sum += product;
 
-                    Console.WriteLine(product);
-
                     DictForValues.Clear();
                 }
             }
 
             Console.WriteLine(sum);
-
-
         }
     }
 }
