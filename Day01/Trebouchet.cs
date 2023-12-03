@@ -117,8 +117,6 @@ namespace AoC.Day01
 
                 sum += Int32.Parse(numberString);
             }
-
-
             return sum;
         }
 

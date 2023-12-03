@@ -22,7 +22,7 @@ namespace AoC.Day02
          */
         public static void Start()
         {
-            List<string> text = ReadFileToList("C:\\Users\\Dimitri\\source\\repos\\AoC\\AoC\\Day02.txt");
+            List<string> text = ReadFileToList("C:\\Users\\Dimitri\\source\\repos\\AoC\\AoC\\Day02\\Day02.txt");
 
             //index 0 - red; index 1 - green; index 2 - blue;
             int[] arrCubes = new int[3] { 12, 13, 14 };
@@ -46,9 +46,7 @@ namespace AoC.Day02
                 {
                     textLines.Add(line);
                 }
-
             }
-
             return textLines;
         }
 
