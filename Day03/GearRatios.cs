@@ -21,6 +21,8 @@ namespace AoC.Day03
         {
             //string engineSchematicExample = "467..114..\r\n...*......\r\n..35..633.\r\n......#...\r\n617*......\r\n.....+.58.\r\n..592.....\r\n......755.\r\n...$.*....\r\n.664.598..";
 
+            //string engineSchematicExample = "12.......*..\r\n+.........34\r\n.......-12..\r\n..78........\r\n..*....60...\r\n78.........9\r\n.5.....23..$\r\n8...90*12...\r\n............\r\n2.2......12.\r\n.*.........*\r\n1.1..503+.56";
+
             //string engineSchematicClean = Regex.Replace(engineSchematicExample, "\r", "");
 
             ////number of rows
@@ -29,7 +31,7 @@ namespace AoC.Day03
             ////number of columns
             //int columns = engineSchematicClean.Split('\n').Count();
 
-            //char[][] engineSchematicArr = Fill2DArrayForSchematics(Create2DArrayForSchematic(engineSchematicExample, rows, columns), engineSchematicClean);
+            //char[][] engineSchematicArr = Fill2DArrayForSchematics(Create2DArrayForSchematic(rows, columns), engineSchematicClean);
 
             //foreach (char[] arr in engineSchematicArr)
             //{
@@ -64,16 +66,22 @@ namespace AoC.Day03
             //number of rows
             int rows = Regex.Count(engineSchematicClean, "\\n") + 1;
 
+
             //number of columns
             int columns = engineSchematicClean.Split('\n').Count();
 
-            char[][] engineSchematicArr = Fill2DArrayForSchematics(Create2DArrayForSchematic(engineSchematic, rows, columns), engineSchematicClean);
+            char[][] engineSchematicArr = Fill2DArrayForSchematics(Create2DArrayForSchematic(rows, columns), engineSchematicClean);
+
+            int count = 0;
 
             foreach (char[] charArr in engineSchematicArr)
             {
-                foreach(char myChar in charArr)
+                Console.Write(count + " ");
+                count++;
+                foreach (char myChar in charArr)
                 {
                     Console.Write(myChar);
+
                 }
                 Console.WriteLine();
             }
@@ -81,7 +89,7 @@ namespace AoC.Day03
             Console.WriteLine(SumPartNumbers(findNumber(engineSchematicArr)));
         }
 
-        public static char[][] Create2DArrayForSchematic(string schematic, int rows, int columns)
+        public static char[][] Create2DArrayForSchematic(int rows, int columns)
         {
 
             char[][] arrSchematics = new char[rows][];
@@ -111,26 +119,26 @@ namespace AoC.Day03
             return arr;
         }
 
-        public static int[][] FindSpecialCharacteres(char[][] arr)
-        {
-            int[][] intArr = create2DIntArr(arr.Length, 2);
+        //public static int[][] FindSpecialCharacteres(char[][] arr)
+        //{
+        //    int[][] intArr = create2DIntArr(arr.Length, 2);
 
 
 
-            for (int i = 0; i < arr.Length; i++)
-            {
-                for (int j = 0; j < arr[i].Length; j++)
-                {
-                    if (Regex.IsMatch(arr[i][j].ToString(), "[^.0-9]"))
-                    {
-                        intArr[i][0] = i;
-                        intArr[i][1] = j;
-                    }
-                }
-            }
+        //    for (int i = 0; i < arr.Length; i++)
+        //    {
+        //        for (int j = 0; j < arr[i].Length; j++)
+        //        {
+        //            if (Regex.IsMatch(arr[i][j].ToString(), "[^.0-9]"))
+        //            {
+        //                intArr[i][0] = i;
+        //                intArr[i][1] = j;
+        //            }
+        //        }
+        //    }
 
-            return intArr;
-        }
+        //    return intArr;
+        //}
 
         public static int[][] create2DIntArr(int row, int column)
         {
@@ -163,8 +171,8 @@ namespace AoC.Day03
                     if (Regex.IsMatch(arr[i][j].ToString(), "[0-9]"))
                     {
                         number += arr[i][j];
-                        Console.Write("{0}, {1}, {2}: {3}; ", i, j, checkForSpecialChar(i, j, arr), arr[i][j]);
-                        Console.WriteLine();
+                        //Console.Write("{0}, {1}, {2}: {3}; ", i, j, checkForSpecialChar(i, j, arr), arr[i][j]);
+                        //Console.WriteLine();
                         if (checkForSpecialChar(i, j, arr) && !isPartNumber)
                         {
                             isPartNumber = true;
@@ -182,7 +190,17 @@ namespace AoC.Day03
                         isPartNumber = false;
                     } 
 
-
+                    if(j == arr[i].Length - 1)
+                    {
+                        if (isPartNumber)
+                        {
+                            dictNumbers.Add(Int32.Parse(number));
+                            sum += Int32.Parse(number);
+                            Console.WriteLine(number);
+                        }
+                        number = null;
+                        isPartNumber = false;
+                    }
                 }
                 //count++;
             }
@@ -205,7 +223,7 @@ namespace AoC.Day03
             {
                 return true;
             }
-            else if (column != 0 && Regex.IsMatch(arr[row][column - 1].ToString(), "[^.0-9]"))
+            else if (column != 0 && Regex. IsMatch(arr[row][column - 1].ToString(), "[^.0-9]"))
             {
                 return true;
             }
